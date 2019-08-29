@@ -314,21 +314,20 @@ var petMatcher = function petMatcher(petData) {
     humansFiltered.push(obj);
   }); //Final
 
-  var test = [];
+  var different = [];
   humansFiltered.forEach(function (location) {
-    var different = [];
+    different[Object.keys(location)[0]] = [];
     location[Object.keys(location)[0]].forEach(function (firstPerson) {
       location[Object.keys(location)[0]].forEach(function (otherPerson) {
         if (firstPerson.pet.length > 0 && otherPerson.pet.length > 0 && firstPerson !== otherPerson) {
-          if (otherPerson.pet[0].likes.includes(firstPerson.pet[0].type) && !otherPerson.pet[0].dislikes.includes(firstPerson.pet[0].type)) {
-            console.log('dislikes', otherPerson.pet[0].dislikes, firstPerson.pet[0].type);
-            console.log('likes', otherPerson.pet[0].likes, firstPerson.pet[0].type);
-            different.push(firstPerson.pet[0].name);
+          if (otherPerson.pet[0].likes.includes(firstPerson.pet[0].type) && firstPerson.pet[0].likes.includes(otherPerson.pet[0].type) && !otherPerson.pet[0].dislikes.includes(firstPerson.pet[0].type) && !firstPerson.pet[0].dislikes.includes(otherPerson.pet[0].type)) {
+            different[Object.keys(location)[0]].push(firstPerson);
           }
         }
       });
     });
   });
+  console.log(different);
   return "This string gets put into the right side of Code Sandbox! You could even use <strong>HTML</strong> <em>if you want</em>!";
 };
 
@@ -376,7 +375,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54433" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53375" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
